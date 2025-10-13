@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/joblist
+    username: BK # or lowercase if Postgres created lowercase role
+    password: bkpass
