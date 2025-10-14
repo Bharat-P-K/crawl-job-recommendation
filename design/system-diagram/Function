@@ -1,0 +1,23 @@
+graph TD
+subgraph "Frontend (LWC / UI)"
+UI[Job/Candidate Portal]
+end
+
+subgraph "Backend (Spring Boot)"
+Controller[REST Controller]
+Service[Service Layer]
+Repository[Repository Layer]
+end
+
+subgraph "Storage"
+DB[(PostgreSQL)]
+Cache[(Redis)]
+end
+
+subgraph "External"
+SF[Salesforce Agentforce API]
+end
+
+UI --> Controller --> Service --> Repository --> DB
+Service --> Cache
+Service --> SF
