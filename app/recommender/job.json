@@ -1,0 +1,11 @@
+{
+    "title": "Java Developer",
+    "description": "Backend development with Spring Boot",
+    "skills": [
+        "Java",
+        "Spring Boot",
+        "SQL"
+    ],
+    "location": "Bangalore",
+    "experience": 2
+}
