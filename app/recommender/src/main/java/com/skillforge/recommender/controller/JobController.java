@@ -11,7 +11,7 @@ public class JobController {
 
     private final JobRepository jobRepository;
 
-    public JobController(JobRepository jobRepository){
+    public JobController(JobRepository jobRepository) {
         this.jobRepository = jobRepository;
     }
 
@@ -24,4 +24,10 @@ public class JobController {
     public Job addJob(@RequestBody Job job) {
         return jobRepository.save(job);
     }
+
+    @GetMapping("/jobDetails")
+    public Job getJobDetails(@RequestParam Long jobId) {
+        return jobRepository.findById(jobId).orElse(null);
+    }
+
 }
