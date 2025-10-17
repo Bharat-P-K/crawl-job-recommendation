@@ -17,7 +17,7 @@ public class CandidateController {
     private final JobRepository jobRepository;
 
     public CandidateController(CandidateRepository candidateRepository, JobRepository jobRepository) {
-        this.candidateRepository = candidateRepository;
+        this.candidateRepository = candidateRepository; // onstructor-based dependency injection
         this.jobRepository = jobRepository;
 
     }
@@ -33,20 +33,38 @@ public class CandidateController {
         return candidateRepository.save(candidate);
     }
 
-    @GetMapping("/recommend")
-    public List<Candidate> recommend(Long jobId) {
-
+    @GetMapping("/recommendForJob")
+    public List<Candidate> recommend(@RequestParam Long jobId) {
         Job job = jobRepository.findById(jobId).orElse(null);
+        if (job == null) {
+            return new ArrayList<>();
+        }
 
         List<Candidate> allCandidates = candidateRepository.findAll();
-        List<Candidate> matched = new ArrayList<Candidate>();
+        List<Candidate> fitForJobRole = new ArrayList<>();
 
         for (Candidate cd : allCandidates) {
-            if (cd.getExperience() >= job.getExperienceRequired() && job.getSkills().contains(cd.getSkills())) {
-                matched.add(cd);
+            // Convert job skills list to lowercase string for comparison
+            String candidateSkills = cd.getSkills().toLowerCase();
+
+            // Simple match: check if candidate has any job skill
+            boolean skillMatch = false;
+            for (String skill : job.getSkills()) {
+                if (candidateSkills.contains(skill.toLowerCase())) {
+                    skillMatch = true;
+                    break;
+                }
+            }
+
+            // Experience check: candidate should have >= required
+            boolean experienceMatch = cd.getExperience() >= job.getExperienceRequired();
+
+            if (skillMatch && experienceMatch) {
+                fitForJobRole.add(cd);
             }
         }
-        return matched;
+
+        return fitForJobRole;
     }
 
 }
