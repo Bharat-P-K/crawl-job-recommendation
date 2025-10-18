@@ -1,7 +1,6 @@
 package com.skillforge.recommender.service;
 
 import java.util.*;
-import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
 
@@ -16,14 +15,14 @@ public class SalesforceService {
         c1.setName("Aaron Wright");
         c1.setLocation("Bangalore");
         c1.setExperience(5);
-        c1.setSkills("Data Engineer");
+        c1.setSkills("Java, Spring Boot");
 
         Candidate c2 = new Candidate();
 
         c2.setName("Angela Baker");
         c2.setLocation("tampabay");
         c2.setExperience(6);
-        c2.setSkills("Apex,LWC,Integeration");
+        c2.setSkills("React, Node.js");
 
         return Arrays.asList(c1, c2);
 

@@ -8,6 +8,7 @@ import com.skillforge.recommender.service.RecommendationService;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -21,7 +22,7 @@ public class RecommendationController {
     }
 
     @GetMapping("/recommendCandidates/{jobId}")
-    public List<Candidate> getMethodName(@RequestParam Long jobId) {
+    public List<Candidate> getMethodName(@PathVariable Long jobId) {
         return recommendationService.recommendCandidates(jobId);
     }
 
