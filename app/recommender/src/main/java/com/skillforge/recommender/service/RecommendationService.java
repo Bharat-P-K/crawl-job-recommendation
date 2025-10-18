@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.skillforge.recommender.model.Candidate;
 import com.skillforge.recommender.model.Job;
-import com.skillforge.recommender.repository.CandidateRepository;
 import com.skillforge.recommender.repository.JobRepository;
 
 import java.util.*;
@@ -12,12 +11,12 @@ import java.util.*;
 @Service
 public class RecommendationService {
 
-    private final CandidateRepository candidateRepository;
     private final JobRepository jobRepository;
+    private final SalesforceService salesforceService;
 
-    public RecommendationService(CandidateRepository candidateRepository,
+    public RecommendationService(SalesforceService salesforceService,
             JobRepository jobRepository) {
-        this.candidateRepository = candidateRepository;
+        this.salesforceService = salesforceService;
         this.jobRepository = jobRepository;
     }
 
@@ -29,7 +28,7 @@ public class RecommendationService {
         if (job == null)
             return new ArrayList<>();
 
-        List<Candidate> allCandidates = candidateRepository.findAll();
+        List<Candidate> allCandidates = salesforceService.fetchCandidatesFromSalesforce();
         List<Candidate> matched = new ArrayList<>();
 
         for (Candidate candidate : allCandidates) {
